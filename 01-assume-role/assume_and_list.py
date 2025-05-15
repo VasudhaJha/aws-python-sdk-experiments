@@ -1,8 +1,8 @@
 import boto3
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, NoCredentialsError
 
 # the arn of the role you want to assume
-role_arn = "arn:aws:iam::<account_id>:role/S3ReadOnlyAssumableRole"
+role_arn = "arn:aws:iam::<account-id>:role/<role-to-assume>"
 
 # Session name for STS logs — just a unique string
 session_name = "AssumeRoleS3Session"
@@ -13,6 +13,8 @@ try:
     response = sts_client.assume_role(RoleArn=role_arn, RoleSessionName=session_name)
 
     temp_credentials = response['Credentials']
+except NoCredentialsError:
+    print("AWS credentials not found. Did you run `aws configure`?")
 except ClientError as e:
     print(f"Error assuming role: {e.response['Error']['Code']} — {e.response['Error']['Message']}")
 
