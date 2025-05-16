@@ -1,0 +1,26 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {   
+            "Sid": "DenyCreateWithoutManagedByTag",
+            "Effect": "Deny",
+            "Action": "*",
+            "Resource": "*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/ManagedBy": "Python-Boto3"
+                }
+            }
+        },
+        {   
+            "Sid": "CreatedS3Buckets",
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:PutBucketTagging",
+                "s3:GetBucketTagging"
+            ],
+            "Resource": "arn:aws:s3:::boto3-test-*"
+        }
+    ]
+}   

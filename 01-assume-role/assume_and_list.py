@@ -2,7 +2,7 @@ import boto3
 from botocore.exceptions import ClientError, NoCredentialsError
 
 # the arn of the role you want to assume
-role_arn = "arn:aws:iam::<account-id>:role/<role-to-assume>"
+role_arn = "arn:aws:iam::<account-id>:role/S3ReadOnlyAssumableRole"
 
 # Session name for STS logs — just a unique string
 session_name = "AssumeRoleS3Session"
